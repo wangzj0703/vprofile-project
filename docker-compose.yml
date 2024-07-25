@@ -2,17 +2,15 @@ version: '3.8'
 services:
   vprodb:
     build:
-      context: ./Dcker-files/db
+      context: ./Docker-files/db
     image: vprocontainers/vprofiledb
     container_name: vprodb
     ports:
-      -"3306:3306"
+      - "3306:3306"
     volumes:
-      - vprodbdata: /var/lib/mysql
-    environemt:
+      - vprodbdata:/var/lib/mysql
+    environment:
       -MYSQL_ROOT_PASSWORD=vprodbpass
-  redis:
-    image
   
   vprocache01:
     image: memcached
@@ -28,21 +26,21 @@ services:
 
   vproapp:
     build:
-      context: ./Dcker-files/app
+      context: ./Docker-files/app
     image: vprocontainers/vprofileapp
     container_name: vproapp
     ports:
-      -"8080:8080"
+      - "8080:8080"
     volumes:
       - vproappdata: /usr/local/tomcat/webapps
     
   vproweb:
     build:
-      context: ./Dcker-files/web
+      context: ./Docker-files/web
     image: vprocontainers/vprofileweb
     container_name: vproweb
     ports:
-      -"80:80"
+      - "80:80"
 
 volumes:
   vprodbdata: {}
